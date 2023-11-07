@@ -1,0 +1,46 @@
+﻿@model GestionNotificaciones.Models.Entities.Notificacion
+
+@{
+    ViewData["Title"] = Model.TituloPagina;
+}
+
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            @if (Model != null)
+            {
+                <div class="mb-5 p-4" id="notificacion">
+                    <div id="notificacionAPdf">
+                        <h1 class="mb-3">@Model.Encabezado</h1>
+
+                        <div class="d-flex justify-content-between mb-3">
+                            <span class="text-secondary">@Model.Fecha.ToShortDateString()</span>
+                            <p>Última actualización</p>
+                        </div>
+
+                        <div class="mb-3 d-flex">
+                            @foreach (var tag in Model.Tags)
+                            {
+                                <span class="badge bg-info alert-secondary me-1">@tag.Nombre</span>
+                            }
+                        </div>
+
+                        @*.Raw renderiza código HTML*@
+                        <div class="mb-3">
+                            @Html.Raw(Model.Texto)
+                        </div>
+
+                        <div class="mb-3" id="prueba">
+                            @Html.Raw(Model.Contenido)
+                        </div>
+                    </div>                
+                </div>
+            }
+            else
+            {
+                <p>La Notificación no existe</p>
+            }
+        </div>
+    </div>
+</div>

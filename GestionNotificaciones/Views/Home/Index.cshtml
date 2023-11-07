@@ -1,0 +1,63 @@
+﻿@model List<GestionNotificaciones.Models.Entities.Notificacion>
+
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+@*<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>*@
+
+<head>
+    <link rel="stylesheet" href="wwwroot/css/site.css" />
+</head>
+
+<div class="container col-xxl-8 px-4 py-5">
+    <div class="row align-items-baseline align-items-center g-5 py-3">
+        <div class="col-12 col-lg-12">
+            <h1 class="display-5 fw-bold lh-1 mb-3">
+                Sobre el proyecto
+            </h1>
+            <p class="lead">
+                Las siguientes tarjetas simulan entradas de notificaciones para algún tipo de aplicación web, al hacer click en "Notificarse" se accede al mensaje de manera completa.
+                Desde "Gestión de la página" se puede acceder al formulario para crear las notificaciones (GET, POST, PUT, DELETE) que se visualizan en el inicio, como así tambien los tags a utilizar en cada una  
+                (estos son creados en su sección y desde la sección de notificaciones se los puede incorporar en la publicación). 
+                <br/>
+                <br/>
+                Siendo esto parte de un proyecto más grande, la lógica de esta práctica es además incorporar roles de usuario para que gestionar la página sea solo de acceso por parte del administrador, 
+                mientras que los usuarios solo vean el incio y al loguearse, tengan acceso al contenido completo de cada una de las notificaciones.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var notificacion in Model)
+                {
+                    @if (@notificacion.Visible)
+                    {
+                        <div class="mb-5 p-4" id="notificacion">
+                            <p class="mb-2">
+                                @foreach (var tag in notificacion.Tags)
+                                {
+                                    <span class="badge bg-info me-1">@tag.Nombre</span>
+                                }
+                            </p>
+                            <h2 class="mb-2">@notificacion.Encabezado</h2>
+                            <p class="mb-4">@notificacion.Fecha.ToShortDateString()</p>
+                            <p class="mb-4">@Html.Raw(notificacion.Texto)</p>
+                            <a class="btn btn-dark mb-4" asp-area="" asp-controller="Notificaciones" asp-route-urlHandle="@notificacion.UrlHandle">Notificarme</a>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>

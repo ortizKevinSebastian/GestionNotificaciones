@@ -1,0 +1,55 @@
+﻿@model GestionNotificaciones.Models.ViewModels.EditarTagRequest
+
+@{
+}
+
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h1>Editar Tags</h1>
+    </div>
+</div>
+
+<div class="container py-5">
+
+    @if (Model != null)
+    {
+        <form method="post">
+            <div class="mb-3">
+                <label class="form-label">Id</label>
+                <input type="text" id="id" class="form-control" asp-for="Id" readonly />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input type="text" id="nombre" class="form-control" asp-for="Nombre" />
+                <span class="text-danger" asp-validation-for="Nombre"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Descripción del uso del Tag</label>
+                <input type="text" id="descripcion" class="form-control" asp-for="Descripcion" />
+                <span class="text-danger" asp-validation-for="Descripcion"></span>
+            </div>
+
+            <div class="mb-3">
+                <div class="d-flex">
+
+                    <button type="submit" class="btn btn-dark">Editar</button>
+
+                    <button type="submit" class="btn btn-danger ms-2"
+                        asp-area=""
+                        asp-controller="GestionTags"
+                        asp-action="EliminarTag">
+                        Eliminar
+                    </button>
+
+                </div>
+            </div>
+        </form>
+    }
+    else
+    {
+        <p>No es posible editar un Tag con un campo incompleto</p>
+    }
+
+</div>

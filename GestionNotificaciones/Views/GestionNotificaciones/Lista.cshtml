@@ -1,0 +1,57 @@
+﻿@model List<GestionNotificaciones.Models.Entities.Notificacion>
+
+@{
+}
+
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h1>Notificaciones</h1>
+    </div>
+</div>
+
+<div class="container py-5">
+
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Encabezado</th>
+                    <th>Publicado</th>
+                    <th>Tags</th>
+                    <td> </td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var notificacion in Model)
+                {
+                    <tr>
+                        <td>@notificacion.Id</td>
+                        <td>@notificacion.Encabezado</td>
+                        <td>@notificacion.Visible</td>
+                        <td>
+                            <div class="d-flex">
+                                @foreach (var tag in notificacion.Tags)
+                                {
+                                    <span class="badge bg-info me-2">@tag.Nombre</span>
+                                }
+                            </div>
+                        </td>
+                        <td>
+                        <a asp-area=""
+                        asp-controller="GestionNotificaciones"
+                        asp-action="Editar"
+                        asp-route-id="@notificacion.Id">Editar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No hay notificaciones disponibles</p>
+    }
+
+</div>

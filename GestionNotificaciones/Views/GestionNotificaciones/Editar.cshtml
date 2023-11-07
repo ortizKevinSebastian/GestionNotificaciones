@@ -1,0 +1,121 @@
+﻿@model GestionNotificaciones.Models.ViewModels.EditarNotifRequest
+
+@{
+}
+
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h1>Editar Notificaciones</h1>
+    </div>
+</div>
+
+<div class="container py-5">
+    @if (Model != null)
+    {
+        <form method="post">
+            <div class="mb-3">
+                <label class="form-label">Id</label>
+                <input type="text" class="form-control" id="id" asp-for="Id" readonly />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Encabezado</label>
+                <input type="text" class="form-control" id="encabezado" asp-for="Encabezado" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Título Página (aparecerá en la pestaña del buscador)</label>
+                <input type="text" class="form-control" id="tituloPagina" asp-for="TituloPagina" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Texto</label>
+                <textarea class="form-control" id="texto" asp-for="Texto"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Contenido</label>
+                <textarea class="form-control" id="contenido" asp-for="Contenido"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">URL Handle (separar con guión medio)</label>
+                <input type="text" class="form-control" id="urlHandle" asp-for="UrlHandle" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Fecha</label>
+                <input type="date" class="form-control" id="fecha" asp-for="Fecha" />
+            </div>
+
+
+            <div class="mb-3">
+                <label class="form-label">Tags (para seleccionar más de uno, utilizar Ctrl)</label>
+                <select class="form-select" asp-items="@Model.Tags" asp-for="Selecionado"></select>
+            </div>
+
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" role="switch" id="visible" asp-for="Visible">
+                <label class="form-check-label">Publicado</label>
+            </div>
+
+
+            <div class="mb-3 d-flex">
+                <button type="submit" class="btn btn-dark">Guardar</button>
+
+                <button type="submit" class="btn btn-danger ms-2" asp-area="" asp-controller="GestionNotificaciones" asp-action="Eliminar">Eliminar Notificación</button>
+            </div>
+        </form>
+    }
+    else
+    {
+        <p>No es posible editar una Notificación con un campo incompleto</p>
+    }
+</div>
+
+
+
+<!--Script para el Editor Froala paso el id del elemento que voy a convertir-->
+@section Scripts {
+    <script>
+        var editor = new FroalaEditor('#texto')
+        var editor1 = new FroalaEditor('#contenido', {
+            documentReady: true,
+
+            //pastePlain: true,
+            wordPasteModal: false,
+            wordPasteKeepFormatting: true,
+            wordDeniedTags: ['a'],
+            wordDeniedAttrs: ['id'],
+            //  pasteDeniedAttrs: ['class', 'style'],
+            events: {
+                'paste.beforeCleanup': function (clipboard_html) {
+                    // Do something here.
+                    // this is the editor instance.
+                    console.log('beforeCleanup');
+                    console.log(clipboard_html);
+
+                },
+                'paste.afterCleanup': function (clipboard_html) {
+                    // Do something here.
+                    // this is the editor instance.
+                    console.log('afterCleanup');
+                    console.log(clipboard_html);
+
+                },
+                'paste.before': function (original_event) {
+                    // Do something here.
+                    // this is the editor instance.
+                    console.log('before');
+                    console.log(original_event);
+
+                },
+                'paste.after': function () {
+                    // Do something here.
+                    // this is the editor instance.
+                    console.log('after');
+                }
+            },
+        });
+    </script>
+}
